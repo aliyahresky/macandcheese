@@ -1,0 +1,194 @@
+:root {
+  --cheese: #F9D77E;
+  --cheese-soft: #FFF1D6;
+  --taro: #8B5E3C;
+  --sauce: #4A3428;
+  --white: #FFFFFF;
+  --radius: 22px;
+  --font-head: "Fredoka", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--taro);
+  background: var(--white);
+  line-height: 1.6;
+}
+
+h1, h2 { font-family: var(--font-head); line-height: 1.15; }
+
+/* Hero */
+.hero {
+  background: var(--cheese);
+  text-align: center;
+  padding: 48px 20px 64px;
+  border-bottom-left-radius: 50% 28px;
+  border-bottom-right-radius: 50% 28px;
+}
+.logo {
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--taro);
+  border: 4px solid var(--taro);
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 7vw, 3.8rem);
+  max-width: 14em;
+  margin: 0 auto 12px;
+}
+.hero p { max-width: 30em; margin: 0 auto 26px; font-weight: 600; }
+
+.btn {
+  display: inline-block;
+  background: var(--taro);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 12px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+:focus-visible { outline: 3px solid var(--sauce); outline-offset: 3px; }
+
+/* Konten */
+main { max-width: 960px; margin: 0 auto; padding: 48px 20px 16px; }
+section { margin-bottom: 56px; }
+section h2 { font-size: 2rem; margin-bottom: 20px; }
+
+.grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+.card {
+  background: var(--cheese-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.photo {
+  aspect-ratio: 4 / 3;
+  background: var(--cheese) center / cover no-repeat;
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-body { padding: 18px 20px 22px; }
+.card h3 { font-family: var(--font-head); font-size: 1.3rem; margin-bottom: 4px; }
+.card .desc { margin-bottom: 12px; }
+.price {
+  display: inline-block;
+  background: var(--sauce);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+/* Minuman */
+.drinks { list-style: none; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.drinks li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  border: 2px solid var(--taro);
+  border-radius: 16px;
+  padding: 8px 16px 8px 8px;
+}
+.drinks .thumb {
+  width: 56px; height: 56px;
+  border-radius: 12px;
+  background: var(--cheese-soft);
+  display: grid; place-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  font-size: 1.6rem;
+}
+.drinks .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.drinks .name { flex: 1; font-weight: 700; }
+.drinks .price { background: var(--taro); }
+
+/* Kontak */
+footer {
+  background: var(--taro);
+  color: var(--white);
+  text-align: center;
+  padding: 48px 20px 32px;
+}
+footer h2 { font-size: 2rem; margin-bottom: 20px; }
+.contacts { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.contacts a {
+  background: var(--cheese);
+  color: var(--taro);
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+.contacts a:hover { background: var(--white); }
+.copy { margin-top: 32px; font-size: .9rem; opacity: .8; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* ====== ANIMASI ====== */
+
+/* Logo melompat */
+.logo { transform-origin: 50% 100%; cursor: pointer; }
+.logo.jump { animation: lompat .7s ease-in-out 5; }
+@keyframes lompat {
+  0%   { transform: translateY(0) scale(1, 1); }
+  15%  { transform: translateY(0) scale(1.12, .88); }
+  50%  { transform: translateY(-34px) scale(.95, 1.06); }
+  85%  { transform: translateY(0) scale(1.1, .9); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+
+/* Menu muncul satu per satu */
+.reveal { opacity: 0; transform: translateY(28px) scale(.96); }
+.reveal.show {
+  opacity: 1;
+  transform: none;
+  transition: opacity .5s ease, transform .55s cubic-bezier(.34, 1.56, .64, 1);
+}
+.card, .drinks li { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+.card.pop, .drinks li.pop { animation: pop .35s ease; }
+@keyframes pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.05) rotate(-1deg); }
+  100% { transform: scale(1); }
+}
+
+/* Spark / kilau */
+.spark {
+  position: fixed;
+  width: var(--s);
+  height: var(--s);
+  background: var(--c);
+  pointer-events: none;
+  z-index: 9999;
+  clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+  animation: spark .85s ease-out forwards;
+}
+.spark.dot { clip-path: none; border-radius: 50%; }
+@keyframes spark {
+  0%   { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(0) rotate(0deg); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) translate(calc(var(--dx) * .5), calc(var(--dy) * .5)) scale(1.2) rotate(90deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0) rotate(220deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo.jump, .card.pop, .drinks li.pop { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+  .spark { display: none; }
+}
